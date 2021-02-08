@@ -35,10 +35,15 @@ package java.lang;
  * @since   JDK1.0
  */
 public class Object {
-
+    /**
+     * private:私有方法
+     * static:静态方法，通过类名即可访问，不需要再消耗资源反复创建对象，在类第一次加载时，static方法就已经存在内存中，直到程序结束后，内存才释放
+     * native:c或c++方法
+     * 其主要作用是将C/C++中的方法映射到Java中的native方法，实现方法命名的解耦。函数的执行是在静态代码块中执行的，在类首次进行加载的时候执行
+     */
     private static native void registerNatives();
     static {
-        registerNatives();
+        registerNatives();    //所有类都继承Object，因此都会执行这个registerNatives方法，注册本地函数
     }
 
     /**
@@ -60,7 +65,7 @@ public class Object {
      *         class of this object.
      * @jls 15.8.2 Class Literals
      */
-    public final native Class<?> getClass();
+    public final native Class<?> getClass();  //返回当前对象所属类的类对象
 
     /**
      * Returns a hash code value for the object. This method is
@@ -97,6 +102,7 @@ public class Object {
      * @see     java.lang.Object#equals(java.lang.Object)
      * @see     java.lang.System#identityHashCode
      */
+    //返回当前对象的哈希码，往往作为当前对象的唯一标识
     public native int hashCode();
 
     /**
@@ -145,6 +151,7 @@ public class Object {
      * @see     #hashCode()
      * @see     java.util.HashMap
      */
+    //object方法比较的是引用地址，其他类如果不重写equals方法，则比较的也是引用地址
     public boolean equals(Object obj) {
         return (this == obj);
     }
@@ -209,6 +216,10 @@ public class Object {
      *               be cloned.
      * @see java.lang.Cloneable
      */
+    /**
+     * 创建并返回一个对象的拷贝
+     * 浅拷贝：对象内属性引用的对象只会拷贝引用地址，而不会将引用的对象重新分配内存，深拷贝则会连引用对象也重新创建
+     */
     protected native Object clone() throws CloneNotSupportedException;
 
     /**
@@ -231,6 +242,10 @@ public class Object {
      * </pre></blockquote>
      *
      * @return  a string representation of the object.
+     */
+    /**
+     * 字符串化，往往需要重写
+     * 返回内容：类对象名称+十六进制的hashcode码值
      */
     public String toString() {
         return getClass().getName() + "@" + Integer.toHexString(hashCode());
@@ -268,6 +283,7 @@ public class Object {
      * @see        java.lang.Object#notifyAll()
      * @see        java.lang.Object#wait()
      */
+    // 随机唤醒某个具有相同锁的对象从wait状态进入争锁状态
     public final native void notify();
 
     /**
@@ -292,6 +308,7 @@ public class Object {
      * @see        java.lang.Object#notify()
      * @see        java.lang.Object#wait()
      */
+    // 唤醒所有具有相同锁的对象从wait状态进入争锁状态
     public final native void notifyAll();
 
     /**
@@ -379,6 +396,7 @@ public class Object {
      * @see        java.lang.Object#notify()
      * @see        java.lang.Object#notifyAll()
      */
+    //等待timeout毫秒之后自动醒来，或者靠下述条件2或条件3唤醒（释放锁）
     public final native void wait(long timeout) throws InterruptedException;
 
     /**
@@ -443,6 +461,10 @@ public class Object {
      *             status</i> of the current thread is cleared when
      *             this exception is thrown.
      */
+    /*
+     * 至少等待timeoutMillis毫秒，nanos是一个纳秒级的附加时间，用来微调timeoutMillis参数（释放锁）
+     * 内部实现可参考Thread中的void sleep(long millis, int nanos)方法
+     */
     public final void wait(long timeout, int nanos) throws InterruptedException {
         if (timeout < 0) {
             throw new IllegalArgumentException("timeout value is negative");
@@ -498,6 +520,42 @@ public class Object {
      * @see        java.lang.Object#notify()
      * @see        java.lang.Object#notifyAll()
      */
+    /*
+     * wait使得调用wait方法的线程放弃锁的持有权，并进入WAITING或TIMED_WAITING状态
+     *
+     * wait方法应当配合synchronized一起使用：
+     *
+     * 示例一：
+     * synchronized void fun(){
+     *   try {
+     *      wait(1000);
+     *   } catch(InterruptedException e) {
+     *      e.printStackTrace();
+     *   }
+     * }
+     *
+     * 示例二：
+     * synchronized(object) {
+     *   try {
+     *     object.wait(1000);
+     *   } catch(InterruptedException e) {
+     *     e.printStackTrace();
+     *   }
+     * }
+     *
+     * wait让当前线程陷入等待的同时，释放其持有的锁，以便让其他线程争夺锁的控制权
+     * 作为对比，Thread.sleep方法即使陷入等待，也不会释放其持有的锁
+     *
+     * wait线程醒来的条件：
+     * 1. 超时
+     * 2. 被notify()或notifyAll()唤醒
+     * 3. 在其他线程中调用该线程的interrupt()方法
+     *
+     * 注：
+     * wait方法持有的锁是当前wait所处的上下文的对象（某个栈帧中的对象）
+     * 如果wait持有的锁与当前上下文中的锁不一致，或者wait和notify用的锁不一致，会触发InterruptedException
+     */
+    //永不超时，需要靠上述条件2或条件3唤醒（释放锁）
     public final void wait() throws InterruptedException {
         wait(0);
     }
@@ -552,5 +610,7 @@ public class Object {
      * @see java.lang.ref.PhantomReference
      * @jls 12.6 Finalization of Class Instances
      */
+    //对象在被GC回收时调用此方法，只会被调用一次
+    //大致描述一下finalize流程：当对象变成(GC Roots)不可达时，GC会判断该对象是否覆盖了finalize方法，若未覆盖，则直接将其回收。否则，若对象未执行过finalize方法，将其放入F-Queue队列，由一低优先级线程(消耗性能)执行该队列中对象的finalize方法。执行finalize方法完毕后，GC会再次判断该对象是否可达，若不可达，则进行回收，否则，对象“复活”。
     protected void finalize() throws Throwable { }
 }
