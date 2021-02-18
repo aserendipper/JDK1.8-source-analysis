@@ -52,7 +52,7 @@ package java.lang;
  * @jls 5.1.3 Narrowing Primitive Conversions
  * @since   JDK1.0
  */
-public abstract class Number implements java.io.Serializable {
+public abstract class Number implements java.io.Serializable {  //数值类型包装类的共同祖先，声明了各种包装类型的拆箱方法
     /**
      * Returns the value of the specified number as an {@code int},
      * which may involve rounding or truncation.
@@ -60,7 +60,7 @@ public abstract class Number implements java.io.Serializable {
      * @return  the numeric value represented by this object after conversion
      *          to type {@code int}.
      */
-    public abstract int intValue();
+    public abstract int intValue();  //以int形式返回当前对象的值
 
     /**
      * Returns the value of the specified number as a {@code long},
@@ -69,7 +69,7 @@ public abstract class Number implements java.io.Serializable {
      * @return  the numeric value represented by this object after conversion
      *          to type {@code long}.
      */
-    public abstract long longValue();
+    public abstract long longValue();  //以long形式返回当前对象的值
 
     /**
      * Returns the value of the specified number as a {@code float},
@@ -78,7 +78,7 @@ public abstract class Number implements java.io.Serializable {
      * @return  the numeric value represented by this object after conversion
      *          to type {@code float}.
      */
-    public abstract float floatValue();
+    public abstract float floatValue();  //以float形式返回当前对象的值
 
     /**
      * Returns the value of the specified number as a {@code double},
@@ -87,7 +87,7 @@ public abstract class Number implements java.io.Serializable {
      * @return  the numeric value represented by this object after conversion
      *          to type {@code double}.
      */
-    public abstract double doubleValue();
+    public abstract double doubleValue();  //以double形式返回当前对象的值
 
     /**
      * Returns the value of the specified number as a {@code byte},
@@ -102,7 +102,7 @@ public abstract class Number implements java.io.Serializable {
      */
     public byte byteValue() {
         return (byte)intValue();
-    }
+    }  //以byte形式返回当前对象的值
 
     /**
      * Returns the value of the specified number as a {@code short},
@@ -117,7 +117,7 @@ public abstract class Number implements java.io.Serializable {
      */
     public short shortValue() {
         return (short)intValue();
-    }
+    }  //以short形式返回当前对象的值
 
     /** use serialVersionUID from JDK 1.0.2 for interoperability */
     private static final long serialVersionUID = -8742448824652078965L;
