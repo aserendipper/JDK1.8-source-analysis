@@ -47,20 +47,20 @@ public final class Byte extends Number implements Comparable<Byte> {
      * A constant holding the minimum value a {@code byte} can
      * have, -2<sup>7</sup>.
      */
-    public static final byte   MIN_VALUE = -128;
+    public static final byte   MIN_VALUE = -128;  //Byte最小值
 
-    /**
+    /*
      * A constant holding the maximum value a {@code byte} can
      * have, 2<sup>7</sup>-1.
      */
-    public static final byte   MAX_VALUE = 127;
+    public static final byte   MAX_VALUE = 127;  //Byte最大值
 
     /**
      * The {@code Class} instance representing the primitive type
      * {@code byte}.
      */
     @SuppressWarnings("unchecked")
-    public static final Class<Byte>     TYPE = (Class<Byte>) Class.getPrimitiveClass("byte");
+    public static final Class<Byte>     TYPE = (Class<Byte>) Class.getPrimitiveClass("byte");  //Byte的原始类型
 
     /**
      * Returns a new {@code String} object representing the
@@ -70,16 +70,16 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @return the string representation of the specified {@code byte}
      * @see java.lang.Integer#toString(int)
      */
-    public static String toString(byte b) {
+    public static String toString(byte b) {   //toString方法
         return Integer.toString((int)b, 10);
     }
 
-    private static class ByteCache {
+    private static class ByteCache {  //Byte对象的缓存池 -128 - 127 之间的数值，在自动装箱的时候会自动获取缓存中的对象，超出范围则创建新的对象。
         private ByteCache(){}
 
-        static final Byte cache[] = new Byte[-(-128) + 127 + 1];
+        static final Byte cache[] = new Byte[-(-128) + 127 + 1];  //建立缓存数组，因为byte最多128*2个值（-(-128)表示负数个数，127表示正数个数，1表示0的个数）
 
-        static {
+        static {    //缓存初始化，范围是-128到127
             for(int i = 0; i < cache.length; i++)
                 cache[i] = new Byte((byte)(i - 128));
         }
@@ -98,7 +98,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @return a {@code Byte} instance representing {@code b}.
      * @since  1.5
      */
-    public static Byte valueOf(byte b) {
+    public static Byte valueOf(byte b) {   //根据基本类型byte值从缓存数组中获取对应Byte对象的值（因为缓存数组中有负数，所以要加上128）
         final int offset = 128;
         return ByteCache.cache[(int)b + offset];
     }
@@ -144,7 +144,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @throws          NumberFormatException If the string does
      *                  not contain a parsable {@code byte}.
      */
-    public static byte parseByte(String s, int radix)
+    public static byte parseByte(String s, int radix)  //将radix进制的String类型数字s，转换为10进制byte数字
         throws NumberFormatException {
         int i = Integer.parseInt(s, radix);
         if (i < MIN_VALUE || i > MAX_VALUE)
@@ -171,7 +171,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @throws          NumberFormatException if the string does not
      *                  contain a parsable {@code byte}.
      */
-    public static byte parseByte(String s) throws NumberFormatException {
+    public static byte parseByte(String s) throws NumberFormatException {  //默认字符串s为十进制对象
         return parseByte(s, 10);
     }
 
@@ -200,7 +200,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @throws          NumberFormatException If the {@code String} does
      *                  not contain a parsable {@code byte}.
      */
-    public static Byte valueOf(String s, int radix)
+    public static Byte valueOf(String s, int radix)  //返回一个十进制Byte对象，值为radix进制的s转化为十进制
         throws NumberFormatException {
         return valueOf(parseByte(s, radix));
     }
@@ -227,7 +227,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @throws          NumberFormatException If the {@code String} does
      *                  not contain a parsable {@code byte}.
      */
-    public static Byte valueOf(String s) throws NumberFormatException {
+    public static Byte valueOf(String s) throws NumberFormatException { //String -> Byte  默认String为10进制数字
         return valueOf(s, 10);
     }
 
@@ -273,7 +273,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      *            contain a parsable {@code byte}.
      * @see java.lang.Byte#parseByte(java.lang.String, int)
      */
-    public static Byte decode(String nm) throws NumberFormatException {
+    public static Byte decode(String nm) throws NumberFormatException { //根据String返回一个Byte对象
         int i = Integer.decode(nm);
         if (i < MIN_VALUE || i > MAX_VALUE)
             throw new NumberFormatException(
@@ -286,7 +286,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      *
      * @serial
      */
-    private final byte value;
+    private final byte value;  //用byte存储数据
 
     /**
      * Constructs a newly allocated {@code Byte} object that
@@ -297,7 +297,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      */
     public Byte(byte value) {
         this.value = value;
-    }
+    }  //byte -> Byte
 
     /**
      * Constructs a newly allocated {@code Byte} object that
@@ -312,7 +312,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      *                  does not contain a parsable {@code byte}.
      * @see        java.lang.Byte#parseByte(java.lang.String, int)
      */
-    public Byte(String s) throws NumberFormatException {
+    public Byte(String s) throws NumberFormatException {  //String -> Byte
         this.value = parseByte(s, 10);
     }
 
@@ -322,7 +322,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      */
     public byte byteValue() {
         return value;
-    }
+    }  //以byte类型返回Byte的值
 
     /**
      * Returns the value of this {@code Byte} as a {@code short} after
@@ -331,7 +331,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      */
     public short shortValue() {
         return (short)value;
-    }
+    }  //以short类型返回Byte的值
 
     /**
      * Returns the value of this {@code Byte} as an {@code int} after
@@ -340,7 +340,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      */
     public int intValue() {
         return (int)value;
-    }
+    }  //以int类型返回Byte的值
 
     /**
      * Returns the value of this {@code Byte} as a {@code long} after
@@ -349,7 +349,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      */
     public long longValue() {
         return (long)value;
-    }
+    }  //以long类型返回Byte的值
 
     /**
      * Returns the value of this {@code Byte} as a {@code float} after
@@ -358,7 +358,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      */
     public float floatValue() {
         return (float)value;
-    }
+    }  //以float类型返回Byte的值
 
     /**
      * Returns the value of this {@code Byte} as a {@code double}
@@ -367,7 +367,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      */
     public double doubleValue() {
         return (double)value;
-    }
+    }  //以double类型返回Byte的值
 
     /**
      * Returns a {@code String} object representing this
@@ -381,7 +381,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      */
     public String toString() {
         return Integer.toString((int)value);
-    }
+    }  //以String类型返回Byte的值
 
     /**
      * Returns a hash code for this {@code Byte}; equal to the result
@@ -392,7 +392,7 @@ public final class Byte extends Number implements Comparable<Byte> {
     @Override
     public int hashCode() {
         return Byte.hashCode(value);
-    }
+    }  //返回hash值
 
     /**
      * Returns a hash code for a {@code byte} value; compatible with
@@ -402,7 +402,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @return a hash code value for a {@code byte} value.
      * @since 1.8
      */
-    public static int hashCode(byte value) {
+    public static int hashCode(byte value) {  //返回hash值
         return (int)value;
     }
 
@@ -416,7 +416,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @return          {@code true} if the objects are the same;
      *                  {@code false} otherwise.
      */
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj) {  //判断两个Byte对象的值是否相等
         if (obj instanceof Byte) {
             return value == ((Byte)obj).byteValue();
         }
@@ -436,7 +436,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      *           comparison).
      * @since   1.2
      */
-    public int compareTo(Byte anotherByte) {
+    public int compareTo(Byte anotherByte) {  // 比较当前Byte对象与另一Byte对象的差值，当前对象-参数对象
         return compare(this.value, anotherByte.value);
     }
 
@@ -474,7 +474,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      *         conversion
      * @since 1.8
      */
-    public static int toUnsignedInt(byte x) {
+    public static int toUnsignedInt(byte x) {  //将byte通过无符号转换转换为int,0xff -> 255 -> 11111111,& 两个数都转为二进制，然后从高位开始比较，如果两个数都为1则为1，否则为0。将一个有符号位的byte数值，转换为无符号位对应的数值,运行过程：x -> x的2进制补码 与 0xff进行 &操作得出结果。
         return ((int) x) & 0xff;
     }
 
@@ -494,7 +494,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      *         conversion
      * @since 1.8
      */
-    public static long toUnsignedLong(byte x) {
+    public static long toUnsignedLong(byte x) {  //将byte通过无符号转换转换为long
         return ((long) x) & 0xffL;
     }
 
@@ -505,7 +505,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      *
      * @since 1.5
      */
-    public static final int SIZE = 8;
+    public static final int SIZE = 8;  //表示一个byte值的二进制位数（补码）
 
     /**
      * The number of bytes used to represent a {@code byte} value in two's
@@ -513,7 +513,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      *
      * @since 1.8
      */
-    public static final int BYTES = SIZE / Byte.SIZE;
+    public static final int BYTES = SIZE / Byte.SIZE;  //表示一个byte值的二进制字节数（补码）
 
     /** use serialVersionUID from JDK 1.1. for interoperability */
     private static final long serialVersionUID = -7183698231559129828L;
