@@ -134,7 +134,7 @@ import java.util.Locale;
  * @since   1.0
  */
 public final
-class Character implements java.io.Serializable, Comparable<Character> {
+class Character implements java.io.Serializable, Comparable<Character> {  //char的包装类
     /**
      * The minimum radix available for conversion to and from strings.
      * The constant value of this field is the smallest value permitted
@@ -147,7 +147,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Integer#toString(int, int)
      * @see     Integer#valueOf(String)
      */
-    public static final int MIN_RADIX = 2;
+    public static final int MIN_RADIX = 2;   // 进制转换约束下限，最小2进制
 
     /**
      * The maximum radix available for conversion to and from strings.
@@ -161,7 +161,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Integer#toString(int, int)
      * @see     Integer#valueOf(String)
      */
-    public static final int MAX_RADIX = 36;
+    public static final int MAX_RADIX = 36;  //进制转换约束上限，最大36进制，因为10个数字+26个字母的限制
 
     /**
      * The constant value of this field is the smallest value of type
@@ -169,7 +169,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since   1.0.2
      */
-    public static final char MIN_VALUE = '\u0000';
+    public static final char MIN_VALUE = '\u0000';  //char的最小值，Unicode基本平面区码点最小值
 
     /**
      * The constant value of this field is the largest value of type
@@ -177,7 +177,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since   1.0.2
      */
-    public static final char MAX_VALUE = '\uFFFF';
+    public static final char MAX_VALUE = '\uFFFF';  //char的最大值，Unicode基本平面区码点最大值
 
     /**
      * The {@code Class} instance representing the primitive type
@@ -186,7 +186,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @since   1.1
      */
     @SuppressWarnings("unchecked")
-    public static final Class<Character> TYPE = (Class<Character>) Class.getPrimitiveClass("char");
+    public static final Class<Character> TYPE = (Class<Character>) Class.getPrimitiveClass("char");  //Character的原始类型
 
     /*
      * Normative general types
@@ -512,7 +512,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.5
      */
-    public static final char MIN_HIGH_SURROGATE = '\uD800';
+    public static final char MIN_HIGH_SURROGATE = '\uD800';  //高代理区[U+D800~U+DBFF]的左边界
 
     /**
      * The maximum value of a
@@ -523,7 +523,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.5
      */
-    public static final char MAX_HIGH_SURROGATE = '\uDBFF';
+    public static final char MAX_HIGH_SURROGATE = '\uDBFF';  //高代理区[U+D800~U+DBFF]的右边界
 
     /**
      * The minimum value of a
@@ -534,7 +534,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.5
      */
-    public static final char MIN_LOW_SURROGATE  = '\uDC00';
+    public static final char MIN_LOW_SURROGATE  = '\uDC00';  //低代理区[U+DC00~U+DFFF]的左边界
 
     /**
      * The maximum value of a
@@ -545,7 +545,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.5
      */
-    public static final char MAX_LOW_SURROGATE  = '\uDFFF';
+    public static final char MAX_LOW_SURROGATE  = '\uDFFF';  //低代理区[U+DC00~U+DFFF]的右边界
 
     /**
      * The minimum value of a Unicode surrogate code unit in the
@@ -553,7 +553,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.5
      */
-    public static final char MIN_SURROGATE = MIN_HIGH_SURROGATE;
+    public static final char MIN_SURROGATE = MIN_HIGH_SURROGATE;  //Unicode高代理区下限
 
     /**
      * The maximum value of a Unicode surrogate code unit in the
@@ -561,7 +561,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.5
      */
-    public static final char MAX_SURROGATE = MAX_LOW_SURROGATE;
+    public static final char MAX_SURROGATE = MAX_LOW_SURROGATE;  //Unicode低代理区上限
 
     /**
      * The minimum value of a
@@ -570,7 +570,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.5
      */
-    public static final int MIN_SUPPLEMENTARY_CODE_POINT = 0x010000;
+    public static final int MIN_SUPPLEMENTARY_CODE_POINT = 0x010000;  //Unicode非基本平面区码点最小值
 
     /**
      * The minimum value of a
@@ -579,7 +579,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.5
      */
-    public static final int MIN_CODE_POINT = 0x000000;
+    public static final int MIN_CODE_POINT = 0x000000;  //Unicode码点最小值
 
     /**
      * The maximum value of a
@@ -588,7 +588,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.5
      */
-    public static final int MAX_CODE_POINT = 0X10FFFF;
+    public static final int MAX_CODE_POINT = 0X10FFFF;  //Unicode码点最大值
 
 
     /**
@@ -600,7 +600,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.2
      */
-    public static class Subset  {
+    public static class Subset  {  //此类的实例表示Unicode字符区域的特定子集。Character类中定义的唯一子集族是Character.UnicodeBlock。Java API的其他部分可以为其自身目的而定义其他子集。
 
         private String name;
 
@@ -658,7 +658,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.2
      */
-    public static final class UnicodeBlock extends Subset {
+    public static final class UnicodeBlock extends Subset {  //Unicode字符区域，包括Unicode私有保留区域。不同类别的符号会划分到不同的Unicode字符区域
 
         private static Map<String, UnicodeBlock> map = new HashMap<>(256);
 
@@ -3207,7 +3207,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.7
      */
-    public static enum UnicodeScript {
+    public static enum UnicodeScript {  //Unicode字符区域合辑，不包括Unicode私有保留区域
         /**
          * Unicode script "Common".
          */
@@ -4556,7 +4556,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
         this.value = value;
     }
 
-    private static class CharacterCache {
+    private static class CharacterCache {  //字符缓存，缓存了[0, 127]范围内的char，避免每次包装char都new对象
         private CharacterCache(){}
 
         static final Character cache[] = new Character[127 + 1];
@@ -4596,7 +4596,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @return  the primitive {@code char} value represented by
      *          this object.
      */
-    public char charValue() {
+    public char charValue() {  //拆箱，将Character对象转为char值
         return value;
     }
 
@@ -4680,7 +4680,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         {@code false} otherwise.
      * @since  1.5
      */
-    public static boolean isValidCodePoint(int codePoint) {
+    public static boolean isValidCodePoint(int codePoint) {  //true：codePoint是合法的Unicode编码，其范围是：[0x000000, 0x10FFFF]
         // Optimized form of:
         //     codePoint >= MIN_CODE_POINT && codePoint <= MAX_CODE_POINT
         int plane = codePoint >>> 16;
@@ -4698,7 +4698,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         {@code false} otherwise.
      * @since  1.7
      */
-    public static boolean isBmpCodePoint(int codePoint) {
+    public static boolean isBmpCodePoint(int codePoint) {  //true：codePoint是基本平面区的码点值[0x0000, 0xFFFF]
         return codePoint >>> 16 == 0;
         // Optimized form of:
         //     codePoint >= MIN_VALUE && codePoint <= MAX_VALUE
@@ -4717,7 +4717,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         {@code false} otherwise.
      * @since  1.5
      */
-    public static boolean isSupplementaryCodePoint(int codePoint) {
+    public static boolean isSupplementaryCodePoint(int codePoint) {  //true：codePoint是非基本平面区码点值[0x010000, 0x10FFFF]
         return codePoint >= MIN_SUPPLEMENTARY_CODE_POINT
             && codePoint <  MAX_CODE_POINT + 1;
     }
@@ -4742,7 +4742,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see    Character.UnicodeBlock#of(int)
      * @since  1.5
      */
-    public static boolean isHighSurrogate(char ch) {
+    public static boolean isHighSurrogate(char ch) {  //true：字符ch位于高代理区[U+D800 ~ U+DBFF]
         // Help VM constant-fold; MAX_HIGH_SURROGATE + 1 == MIN_LOW_SURROGATE
         return ch >= MIN_HIGH_SURROGATE && ch < (MAX_HIGH_SURROGATE + 1);
     }
@@ -4766,7 +4766,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see    Character#isHighSurrogate(char)
      * @since  1.5
      */
-    public static boolean isLowSurrogate(char ch) {
+    public static boolean isLowSurrogate(char ch) {  //true：字符ch位于低代理区[U+DC00 ~ U+DFFF]
         return ch >= MIN_LOW_SURROGATE && ch < (MAX_LOW_SURROGATE + 1);
     }
 
@@ -4790,7 +4790,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         {@code false} otherwise.
      * @since  1.7
      */
-    public static boolean isSurrogate(char ch) {
+    public static boolean isSurrogate(char ch) {  //true：字符ch位于Unicode代理区['\uD800', '\uDFFF']
         return ch >= MIN_SURROGATE && ch < (MAX_SURROGATE + 1);
     }
 
@@ -4812,7 +4812,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * {@code false} otherwise.
      * @since  1.5
      */
-    public static boolean isSurrogatePair(char high, char low) {
+    public static boolean isSurrogatePair(char high, char low) {  //true：字符high和字符low分别是高低代理区的字符
         return isHighSurrogate(high) && isLowSurrogate(low);
     }
 
@@ -4832,7 +4832,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isSupplementaryCodePoint(int)
      * @since   1.5
      */
-    public static int charCount(int codePoint) {
+    public static int charCount(int codePoint) {  //返回该Unicode符号所占的char的个数
         return codePoint >= MIN_SUPPLEMENTARY_CODE_POINT ? 2 : 1;
     }
 
@@ -4848,7 +4848,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         specified surrogate pair.
      * @since  1.5
      */
-    public static int toCodePoint(char high, char low) {
+    public static int toCodePoint(char high, char low) {  //高、低代理区的码点值 ---> Unicode符号编码值
         // Optimized form of:
         // return ((high - MIN_HIGH_SURROGATE) << 10)
         //         + (low - MIN_LOW_SURROGATE)
@@ -4880,7 +4880,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * {@link CharSequence#length() seq.length()}.
      * @since  1.5
      */
-    public static int codePointAt(CharSequence seq, int index) {
+    public static int codePointAt(CharSequence seq, int index) {  //返回索引index处码元的码点值，如果该码元位于Unicode编码的高代理区，则需返回完整的Unicode编码
         char c1 = seq.charAt(index);
         if (isHighSurrogate(c1) && ++index < seq.length()) {
             char c2 = seq.charAt(index);
@@ -4912,7 +4912,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * the length of the {@code char} array.
      * @since  1.5
      */
-    public static int codePointAt(char[] a, int index) {
+    public static int codePointAt(char[] a, int index) {  //返回索引index处码元的码点值，如果该码元位于Unicode编码的高代理区，则需返回完整的Unicode编码
         return codePointAtImpl(a, index, a.length);
     }
 
@@ -4949,7 +4949,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     // throws ArrayIndexOutOfBoundsException if index out of bounds
-    static int codePointAtImpl(char[] a, int index, int limit) {
+    static int codePointAtImpl(char[] a, int index, int limit) {  //返回索引index处码元的码点值，如果该码元位于Unicode编码的高代理区，则需返回完整的Unicode编码
         char c1 = a[index];
         if (isHighSurrogate(c1) && ++index < limit) {
             char c2 = a[index];
@@ -4981,7 +4981,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * CharSequence#length() seq.length()}.
      * @since  1.5
      */
-    public static int codePointBefore(CharSequence seq, int index) {
+    public static int codePointBefore(CharSequence seq, int index) {  //返回索引index-1处码元的码点值，如果该码元位于Unicode编码的低代理区，则需返回完整的Unicode编码
         char c2 = seq.charAt(--index);
         if (isLowSurrogate(c2) && index > 0) {
             char c1 = seq.charAt(--index);
@@ -5013,7 +5013,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * {@code char} array
      * @since  1.5
      */
-    public static int codePointBefore(char[] a, int index) {
+    public static int codePointBefore(char[] a, int index) {  // 返回索引index-1处码元的码点值，如果该码元位于Unicode编码的低代理区，则需返回完整的Unicode编码
         return codePointBeforeImpl(a, index, 0);
     }
 
@@ -5044,7 +5044,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * the length of the {@code char} array.
      * @since  1.5
      */
-    public static int codePointBefore(char[] a, int index, int start) {
+    public static int codePointBefore(char[] a, int index, int start) {  //返回索引index-1处码元的码点值，如果该码元位于Unicode编码的低代理区，则需返回完整的Unicode编码
         if (index <= start || start < 0 || start >= a.length) {
             throw new IndexOutOfBoundsException();
         }
@@ -5052,7 +5052,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
     }
 
     // throws ArrayIndexOutOfBoundsException if index-1 out of bounds
-    static int codePointBeforeImpl(char[] a, int index, int start) {
+    static int codePointBeforeImpl(char[] a, int index, int start) {  //返回索引index-1处码元的码点值，如果该码元位于Unicode编码的低代理区，则需返回完整的Unicode编码
         char c2 = a[--index];
         if (isLowSurrogate(c2) && index > start) {
             char c1 = a[--index];
@@ -5087,7 +5087,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *          character in the UTF-16 encoding
      * @since   1.7
      */
-    public static char highSurrogate(int codePoint) {
+    public static char highSurrogate(int codePoint) {  //非基本平面的字符X的码点值 ---> 基本平面高代理区的码点值
         return (char) ((codePoint >>> 10)
             + (MIN_HIGH_SURROGATE - (MIN_SUPPLEMENTARY_CODE_POINT >>> 10)));
     }
@@ -5116,7 +5116,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *          character in the UTF-16 encoding
      * @since   1.7
      */
-    public static char lowSurrogate(int codePoint) {
+    public static char lowSurrogate(int codePoint) {  //非基本平面的字符的码点值 ---> 基本平面低代理区的码点值
         return (char) ((codePoint & 0x3ff) + MIN_LOW_SURROGATE);
     }
 
@@ -5434,7 +5434,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#toLowerCase(char)
      * @see     Character#getType(char)
      */
-    public static boolean isLowerCase(char ch) {
+    public static boolean isLowerCase(char ch) {  //true：该字符是小写字符
         return isLowerCase((int)ch);
     }
 
@@ -5466,7 +5466,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#getType(int)
      * @since   1.5
      */
-    public static boolean isLowerCase(int codePoint) {
+    public static boolean isLowerCase(int codePoint) {  //true：该字符是小写字符
         return getType(codePoint) == Character.LOWERCASE_LETTER ||
                CharacterData.of(codePoint).isOtherLowercase(codePoint);
     }
@@ -5502,7 +5502,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#getType(char)
      * @since   1.0
      */
-    public static boolean isUpperCase(char ch) {
+    public static boolean isUpperCase(char ch) {  //true：该字符是大写字符
         return isUpperCase((int)ch);
     }
 
@@ -5532,7 +5532,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#getType(int)
      * @since   1.5
      */
-    public static boolean isUpperCase(int codePoint) {
+    public static boolean isUpperCase(int codePoint) {  //true：该字符是大写字符
         return getType(codePoint) == Character.UPPERCASE_LETTER ||
                CharacterData.of(codePoint).isOtherUppercase(codePoint);
     }
@@ -5649,7 +5649,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#forDigit(int, int)
      * @see     Character#getType(char)
      */
-    public static boolean isDigit(char ch) {
+    public static boolean isDigit(char ch) {  //true：该字符是数字字符
         return isDigit((int)ch);
     }
 
@@ -5683,7 +5683,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#getType(int)
      * @since   1.5
      */
-    public static boolean isDigit(int codePoint) {
+    public static boolean isDigit(int codePoint) {  //true：该字符是数字字符
         return getType(codePoint) == Character.DECIMAL_DIGIT_NUMBER;
     }
 
@@ -5775,7 +5775,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierStart(char)
      * @see     Character#isUpperCase(char)
      */
-    public static boolean isLetter(char ch) {
+    public static boolean isLetter(char ch) {  //true：该字符属于字母
         return isLetter((int)ch);
     }
 
@@ -5808,7 +5808,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUpperCase(int)
      * @since   1.5
      */
-    public static boolean isLetter(int codePoint) {
+    public static boolean isLetter(int codePoint) {  //true：该字符属于字母
         return ((((1 << Character.UPPERCASE_LETTER) |
             (1 << Character.LOWERCASE_LETTER) |
             (1 << Character.TITLECASE_LETTER) |
@@ -5841,7 +5841,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierPart(char)
      * @since   1.0.2
      */
-    public static boolean isLetterOrDigit(char ch) {
+    public static boolean isLetterOrDigit(char ch) {  //true：该字符属于字母或数字
         return isLetterOrDigit((int)ch);
     }
 
@@ -5862,7 +5862,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUnicodeIdentifierPart(int)
      * @since   1.5
      */
-    public static boolean isLetterOrDigit(int codePoint) {
+    public static boolean isLetterOrDigit(int codePoint) {  //true：该字符属于字母或数字
         return ((((1 << Character.UPPERCASE_LETTER) |
             (1 << Character.LOWERCASE_LETTER) |
             (1 << Character.TITLECASE_LETTER) |
@@ -6341,7 +6341,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isLowerCase(char)
      * @see     String#toLowerCase()
      */
-    public static char toLowerCase(char ch) {
+    public static char toLowerCase(char ch) {  //转为小写形式
         return (char)toLowerCase((int)ch);
     }
 
@@ -6370,7 +6370,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since   1.5
      */
-    public static int toLowerCase(int codePoint) {
+    public static int toLowerCase(int codePoint) {  //转为小写形式
         return CharacterData.of(codePoint).toLowerCase(codePoint);
     }
 
@@ -6401,7 +6401,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isUpperCase(char)
      * @see     String#toUpperCase()
      */
-    public static char toUpperCase(char ch) {
+    public static char toUpperCase(char ch) {  //转为大写形式
         return (char)toUpperCase((int)ch);
     }
 
@@ -6430,7 +6430,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since   1.5
      */
-    public static int toUpperCase(int codePoint) {
+    public static int toUpperCase(int codePoint) {  //转为大写形式
         return CharacterData.of(codePoint).toUpperCase(codePoint);
     }
 
@@ -6462,7 +6462,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#toUpperCase(char)
      * @since   1.0.2
      */
-    public static char toTitleCase(char ch) {
+    public static char toTitleCase(char ch) {  //转为TitleCase形式
         return (char)toTitleCase((int)ch);
     }
 
@@ -6489,7 +6489,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#toUpperCase(int)
      * @since   1.5
      */
-    public static int toTitleCase(int codePoint) {
+    public static int toTitleCase(int codePoint) {  //转为TitleCase形式
         return CharacterData.of(codePoint).toTitleCase(codePoint);
     }
 
@@ -6543,7 +6543,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#forDigit(int, int)
      * @see     Character#isDigit(char)
      */
-    public static int digit(char ch, int radix) {
+    public static int digit(char ch, int radix) {  //返回字符ch在radix进制中代表的数值
         return digit((int)ch, radix);
     }
 
@@ -6595,7 +6595,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#isDigit(int)
      * @since   1.5
      */
-    public static int digit(int codePoint, int radix) {
+    public static int digit(int codePoint, int radix) {  //返回字符ch在radix进制中代表的数值
         return CharacterData.of(codePoint).digit(codePoint, radix);
     }
 
@@ -7132,7 +7132,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *          locale-dependent.
      * @since   1.2
      */
-    public int compareTo(Character anotherCharacter) {
+    public int compareTo(Character anotherCharacter) {  // 拿当前字符与参数中的字符做比较，返回值<0代表当前字符小于参数中的字符，以此类推
         return compare(this.value, anotherCharacter.value);
     }
 
@@ -7150,7 +7150,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *         a value greater than {@code 0} if {@code x > y}
      * @since 1.7
      */
-    public static int compare(char x, char y) {
+    public static int compare(char x, char y) {  //比较字符x和字符y，返回x-y的结果
         return x - y;
     }
 
@@ -7169,7 +7169,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @see     Character#toTitleCase(char)
      * @since 1.4
      */
-    static int toUpperCaseEx(int codePoint) {
+    static int toUpperCaseEx(int codePoint) {  //转为大写形式（考虑可能出现的扩展字符）
         assert isValidCodePoint(codePoint);
         return CharacterData.of(codePoint).toUpperCaseEx(codePoint);
     }
@@ -7185,7 +7185,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      * @return a {@code char[]} with the uppercased character.
      * @since 1.4
      */
-    static char[] toUpperCaseCharArray(int codePoint) {
+    static char[] toUpperCaseCharArray(int codePoint) {  //将字符ch存入字符数组，如果是索引223处的字符ß，需要特殊处理
         // As of Unicode 6.0, 1:M uppercasings only happen in the BMP.
         assert isBmpCodePoint(codePoint);
         return CharacterData.of(codePoint).toUpperCaseCharArray(codePoint);
@@ -7197,7 +7197,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.5
      */
-    public static final int SIZE = 16;
+    public static final int SIZE = 16;  //（无符号）char所占的位数
 
     /**
      * The number of bytes used to represent a {@code char} value in unsigned
@@ -7205,7 +7205,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.8
      */
-    public static final int BYTES = SIZE / Byte.SIZE;
+    public static final int BYTES = SIZE / Byte.SIZE;  //（无符号）char所占的字节数
 
     /**
      * Returns the value obtained by reversing the order of the bytes in the
@@ -7216,7 +7216,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *     the bytes in the specified <tt>char</tt> value.
      * @since 1.5
      */
-    public static char reverseBytes(char ch) {
+    public static char reverseBytes(char ch) {  //以字节为单位逆置字节顺序
         return (char) (((ch & 0xFF00) >> 8) | (ch << 8));
     }
 
@@ -7248,7 +7248,7 @@ class Character implements java.io.Serializable, Comparable<Character> {
      *
      * @since 1.7
      */
-    public static String getName(int codePoint) {
+    public static String getName(int codePoint) { //由码点值获取对应的Unicode字符区域名称，如Character.getName(0x54c8)=="CJK UNIFIED IDEOGRAPHS 54C8"
         if (!isValidCodePoint(codePoint)) {
             throw new IllegalArgumentException();
         }
