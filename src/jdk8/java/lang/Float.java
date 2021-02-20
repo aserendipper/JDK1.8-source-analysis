@@ -46,27 +46,27 @@ import sun.misc.DoubleConsts;
  * @author  Joseph D. Darcy
  * @since JDK1.0
  */
-public final class Float extends Number implements Comparable<Float> {
+public final class Float extends Number implements Comparable<Float> {  //float的包装类
     /**
      * A constant holding the positive infinity of type
      * {@code float}. It is equal to the value returned by
      * {@code Float.intBitsToFloat(0x7f800000)}.
      */
-    public static final float POSITIVE_INFINITY = 1.0f / 0.0f;
+    public static final float POSITIVE_INFINITY = 1.0f / 0.0f;  //代表正无穷大
 
     /**
      * A constant holding the negative infinity of type
      * {@code float}. It is equal to the value returned by
      * {@code Float.intBitsToFloat(0xff800000)}.
      */
-    public static final float NEGATIVE_INFINITY = -1.0f / 0.0f;
+    public static final float NEGATIVE_INFINITY = -1.0f / 0.0f;  //代表负无穷大
 
     /**
      * A constant holding a Not-a-Number (NaN) value of type
      * {@code float}.  It is equivalent to the value returned by
      * {@code Float.intBitsToFloat(0x7fc00000)}.
      */
-    public static final float NaN = 0.0f / 0.0f;
+    public static final float NaN = 0.0f / 0.0f;  //代表非数字
 
     /**
      * A constant holding the largest positive finite value of type
@@ -75,7 +75,7 @@ public final class Float extends Number implements Comparable<Float> {
      * {@code 0x1.fffffeP+127f} and also equal to
      * {@code Float.intBitsToFloat(0x7f7fffff)}.
      */
-    public static final float MAX_VALUE = 0x1.fffffeP+127f; // 3.4028235e+38f
+    public static final float MAX_VALUE = 0x1.fffffeP+127f; // 3.4028235e+38f  float最大值
 
     /**
      * A constant holding the smallest positive normal value of type
@@ -85,7 +85,7 @@ public final class Float extends Number implements Comparable<Float> {
      *
      * @since 1.6
      */
-    public static final float MIN_NORMAL = 0x1.0p-126f; // 1.17549435E-38f
+    public static final float MIN_NORMAL = 0x1.0p-126f; // 1.17549435E-38f  float最小正值
 
     /**
      * A constant holding the smallest positive nonzero value of type
@@ -93,7 +93,7 @@ public final class Float extends Number implements Comparable<Float> {
      * hexadecimal floating-point literal {@code 0x0.000002P-126f}
      * and also equal to {@code Float.intBitsToFloat(0x1)}.
      */
-    public static final float MIN_VALUE = 0x0.000002P-126f; // 1.4e-45f
+    public static final float MIN_VALUE = 0x0.000002P-126f; // 1.4e-45f  float最小值
 
     /**
      * Maximum exponent a finite {@code float} variable may have.  It
@@ -102,7 +102,7 @@ public final class Float extends Number implements Comparable<Float> {
      *
      * @since 1.6
      */
-    public static final int MAX_EXPONENT = 127;
+    public static final int MAX_EXPONENT = 127;  //float二进制形式指数部分最大值
 
     /**
      * Minimum exponent a normalized {@code float} variable may have.
@@ -111,21 +111,21 @@ public final class Float extends Number implements Comparable<Float> {
      *
      * @since 1.6
      */
-    public static final int MIN_EXPONENT = -126;
+    public static final int MIN_EXPONENT = -126;  //float二进制形式指数部分最小值
 
     /**
      * The number of bits used to represent a {@code float} value.
      *
      * @since 1.5
      */
-    public static final int SIZE = 32;
+    public static final int SIZE = 32;  //当前类型所占bit[位]数
 
     /**
      * The number of bytes used to represent a {@code float} value.
      *
      * @since 1.8
      */
-    public static final int BYTES = SIZE / Byte.SIZE;
+    public static final int BYTES = SIZE / Byte.SIZE;  //当前类型所占字节数
 
     /**
      * The {@code Class} instance representing the primitive type
@@ -134,7 +134,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @since JDK1.1
      */
     @SuppressWarnings("unchecked")
-    public static final Class<Float> TYPE = (Class<Float>) Class.getPrimitiveClass("float");
+    public static final Class<Float> TYPE = (Class<Float>) Class.getPrimitiveClass("float");  //Float的原始类型
 
     /**
      * Returns a string representation of the {@code float}
@@ -280,7 +280,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @since 1.5
      * @author Joseph D. Darcy
      */
-    public static String toHexString(float f) {
+    public static String toHexString(float f) {  //返回浮点值f的十六进制形式
         if (Math.abs(f) < FloatConsts.MIN_NORMAL
             &&  f != 0.0f ) {// float subnormal
             // Adjust exponent to create subnormal double, then
@@ -412,7 +412,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @throws  NumberFormatException  if the string does not contain a
      *          parsable number.
      */
-    public static Float valueOf(String s) throws NumberFormatException {
+    public static Float valueOf(String s) throws NumberFormatException {  //将字符串s解析为float值，然后再装箱
         return new Float(parseFloat(s));
     }
 
@@ -429,7 +429,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @return a {@code Float} instance representing {@code f}.
      * @since  1.5
      */
-    public static Float valueOf(float f) {
+    public static Float valueOf(float f) {  //float-->Float 默认的装箱行为
         return new Float(f);
     }
 
@@ -447,7 +447,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @see    java.lang.Float#valueOf(String)
      * @since 1.2
      */
-    public static float parseFloat(String s) throws NumberFormatException {
+    public static float parseFloat(String s) throws NumberFormatException {  //将字符串s解析为float值
         return FloatingDecimal.parseFloat(s);
     }
 
@@ -459,7 +459,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @return  {@code true} if the argument is NaN;
      *          {@code false} otherwise.
      */
-    public static boolean isNaN(float v) {
+    public static boolean isNaN(float v) {  //判断f是否为NaN
         return (v != v);
     }
 
@@ -471,7 +471,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @return  {@code true} if the argument is positive infinity or
      *          negative infinity; {@code false} otherwise.
      */
-    public static boolean isInfinite(float v) {
+    public static boolean isInfinite(float v) {  //判断v是否为正无穷大/负无穷大
         return (v == POSITIVE_INFINITY) || (v == NEGATIVE_INFINITY);
     }
 
@@ -486,7 +486,7 @@ public final class Float extends Number implements Comparable<Float> {
      * floating-point value, {@code false} otherwise.
      * @since 1.8
      */
-     public static boolean isFinite(float f) {
+     public static boolean isFinite(float f) {  //判断f是否为有限值
         return Math.abs(f) <= FloatConsts.MAX_VALUE;
     }
 
@@ -539,7 +539,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @return  {@code true} if the value represented by this object is
      *          NaN; {@code false} otherwise.
      */
-    public boolean isNaN() {
+    public boolean isNaN() {  //判断当前float值是否为NaN
         return isNaN(value);
     }
 
@@ -551,7 +551,7 @@ public final class Float extends Number implements Comparable<Float> {
      *          positive infinity or negative infinity;
      *          {@code false} otherwise.
      */
-    public boolean isInfinite() {
+    public boolean isInfinite() {  //判断当前float值是否为正无穷大/负无穷大
         return isInfinite(value);
     }
 
@@ -576,7 +576,7 @@ public final class Float extends Number implements Comparable<Float> {
      *          converted to type {@code byte}
      * @jls 5.1.3 Narrowing Primitive Conversions
      */
-    public byte byteValue() {
+    public byte byteValue() {  //以byte形式返回当前对象的值
         return (byte)value;
     }
 
@@ -589,7 +589,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @jls 5.1.3 Narrowing Primitive Conversions
      * @since JDK1.1
      */
-    public short shortValue() {
+    public short shortValue() {  //以short形式返回当前对象的值
         return (short)value;
     }
 
@@ -601,7 +601,7 @@ public final class Float extends Number implements Comparable<Float> {
      *          converted to type {@code int}
      * @jls 5.1.3 Narrowing Primitive Conversions
      */
-    public int intValue() {
+    public int intValue() {  //以int形式返回当前对象的值
         return (int)value;
     }
 
@@ -613,7 +613,7 @@ public final class Float extends Number implements Comparable<Float> {
      *          converted to type {@code long}
      * @jls 5.1.3 Narrowing Primitive Conversions
      */
-    public long longValue() {
+    public long longValue() {  //以long形式返回当前对象的值
         return (long)value;
     }
 
@@ -622,7 +622,7 @@ public final class Float extends Number implements Comparable<Float> {
      *
      * @return the {@code float} value represented by this object
      */
-    public float floatValue() {
+    public float floatValue() {  //Float-->float 默认的拆箱行为
         return value;
     }
 
@@ -634,7 +634,7 @@ public final class Float extends Number implements Comparable<Float> {
      *         object converted to type {@code double}
      * @jls 5.1.2 Widening Primitive Conversions
      */
-    public double doubleValue() {
+    public double doubleValue() {  //以double形式返回当前对象的值
         return (double)value;
     }
 
@@ -704,7 +704,7 @@ public final class Float extends Number implements Comparable<Float> {
      *          {@code false} otherwise.
      * @see java.lang.Float#floatToIntBits(float)
      */
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj) {  //比较两个对象的值是否相等
         return (obj instanceof Float)
                && (floatToIntBits(((Float)obj).value) == floatToIntBits(value));
     }
@@ -740,7 +740,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @param   value   a floating-point number.
      * @return the bits that represent the floating-point number.
      */
-    public static int floatToIntBits(float value) {
+    public static int floatToIntBits(float value) {  //先计算value的二进制格式，然后返回该二进制格式表示的int
         int result = floatToRawIntBits(value);
         // Check for NaN based on values of bit fields, maximum
         // exponent and nonzero significand.
@@ -786,7 +786,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @return the bits that represent the floating-point number.
      * @since 1.3
      */
-    public static native int floatToRawIntBits(float value);
+    public static native int floatToRawIntBits(float value);  //先计算value的二进制格式，然后返回该二进制格式表示的int
 
     /**
      * Returns the {@code float} value corresponding to a given
@@ -847,7 +847,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @return  the {@code float} floating-point value with the same bit
      *          pattern.
      */
-    public static native float intBitsToFloat(int bits);
+    public static native float intBitsToFloat(int bits);  //先计算bits的二进制格式，然后返回该二进制格式表示的float
 
     /**
      * Compares two {@code Float} objects numerically.  There are
@@ -881,7 +881,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @since   1.2
      * @see Comparable#compareTo(Object)
      */
-    public int compareTo(Float anotherFloat) {
+    public int compareTo(Float anotherFloat) {  //比较两个Float
         return Float.compare(value, anotherFloat.value);
     }
 
@@ -903,7 +903,7 @@ public final class Float extends Number implements Comparable<Float> {
      *          {@code f2}.
      * @since 1.4
      */
-    public static int compare(float f1, float f2) {
+    public static int compare(float f1, float f2) {  //比较两个Float
         if (f1 < f2)
             return -1;           // Neither val is NaN, thisVal is smaller
         if (f1 > f2)
@@ -928,7 +928,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @see java.util.function.BinaryOperator
      * @since 1.8
      */
-    public static float sum(float a, float b) {
+    public static float sum(float a, float b) {  //求和
         return a + b;
     }
 
@@ -942,7 +942,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @see java.util.function.BinaryOperator
      * @since 1.8
      */
-    public static float max(float a, float b) {
+    public static float max(float a, float b) {  //求最大值
         return Math.max(a, b);
     }
 
@@ -956,7 +956,7 @@ public final class Float extends Number implements Comparable<Float> {
      * @see java.util.function.BinaryOperator
      * @since 1.8
      */
-    public static float min(float a, float b) {
+    public static float min(float a, float b) {  //求最小值
         return Math.min(a, b);
     }
 
