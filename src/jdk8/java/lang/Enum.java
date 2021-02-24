@@ -53,13 +53,13 @@ import java.io.ObjectStreamException;
  * @since   1.5
  */
 public abstract class Enum<E extends Enum<E>>
-        implements Comparable<E>, Serializable {
+        implements Comparable<E>, Serializable {  //可以看作是所有enum的包装类，不过Enum类是禁止直接继承的
     /**
      * The name of this enum constant, as declared in the enum declaration.
      * Most programmers should use the {@link #toString} method rather than
      * accessing this field.
      */
-    private final String name;
+    private final String name;  //枚举实例名称
 
     /**
      * Returns the name of this enum constant, exactly as declared in its
@@ -73,7 +73,7 @@ public abstract class Enum<E extends Enum<E>>
      *
      * @return the name of this enum constant
      */
-    public final String name() {
+    public final String name() {  //返回枚举实例名称
         return name;
     }
 
@@ -86,7 +86,7 @@ public abstract class Enum<E extends Enum<E>>
      * for use by sophisticated enum-based data structures, such as
      * {@link java.util.EnumSet} and {@link java.util.EnumMap}.
      */
-    private final int ordinal;
+    private final int ordinal;  //枚举实例的值
 
     /**
      * Returns the ordinal of this enumeration constant (its position
@@ -99,7 +99,7 @@ public abstract class Enum<E extends Enum<E>>
      *
      * @return the ordinal of this enumeration constant
      */
-    public final int ordinal() {
+    public final int ordinal() {  //返回枚举实例的值
         return ordinal;
     }
 
@@ -172,7 +172,7 @@ public abstract class Enum<E extends Enum<E>>
      * same enum type.  The natural order implemented by this
      * method is the order in which the constants are declared.
      */
-    public final int compareTo(E o) {
+    public final int compareTo(E o) {  //比较枚举实例的值；声明靠前的枚举，其"值"较小
         Enum<?> other = (Enum<?>)o;
         Enum<E> self = this;
         if (self.getClass() != other.getClass() && // optimization
@@ -194,7 +194,7 @@ public abstract class Enum<E extends Enum<E>>
      *     enum type
      */
     @SuppressWarnings("unchecked")
-    public final Class<E> getDeclaringClass() {
+    public final Class<E> getDeclaringClass() {  //返回枚举类类对象
         Class<?> clazz = getClass();
         Class<?> zuper = clazz.getSuperclass();
         return (zuper == Enum.class) ? (Class<E>)clazz : (Class<E>)zuper;
@@ -228,7 +228,7 @@ public abstract class Enum<E extends Enum<E>>
      * @since 1.5
      */
     public static <T extends Enum<T>> T valueOf(Class<T> enumType,
-                                                String name) {
+                                                String name) {  //获取枚举类enumType中名称为name的枚举实例，其他实例不受影响。Color c = Enum.valueOf(Color.class, "WHITE");
         T result = enumType.enumConstantDirectory().get(name);
         if (result != null)
             return result;
@@ -244,7 +244,7 @@ public abstract class Enum<E extends Enum<E>>
     protected final void finalize() { }
 
     /**
-     * prevent default deserialization
+     * prevent default deserialization  //防止默认的反序列化
      */
     private void readObject(ObjectInputStream in) throws IOException,
         ClassNotFoundException {
