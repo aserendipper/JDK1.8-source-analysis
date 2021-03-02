@@ -91,6 +91,7 @@ package java.util.concurrent;
  * @since 1.5
  * @author Doug Lea
  */
+//【定时任务执行框架】
 public interface ScheduledExecutorService extends ExecutorService {
 
     /**
@@ -107,6 +108,7 @@ public interface ScheduledExecutorService extends ExecutorService {
      *         scheduled for execution
      * @throws NullPointerException if command is null
      */
+    //执行一次性的定时任务(Runnable)
     public ScheduledFuture<?> schedule(Runnable command,
                                        long delay, TimeUnit unit);
 
@@ -123,6 +125,7 @@ public interface ScheduledExecutorService extends ExecutorService {
      *         scheduled for execution
      * @throws NullPointerException if callable is null
      */
+    //执行一次性的定时任务(Callable)
     public <V> ScheduledFuture<V> schedule(Callable<V> callable,
                                            long delay, TimeUnit unit);
 
@@ -151,6 +154,7 @@ public interface ScheduledExecutorService extends ExecutorService {
      * @throws NullPointerException if command is null
      * @throws IllegalArgumentException if period less than or equal to zero
      */
+    //执行重复性的定时任务：固定周期，从任务初次被触发开始，以后每隔period时间就被触发一次
     public ScheduledFuture<?> scheduleAtFixedRate(Runnable command,
                                                   long initialDelay,
                                                   long period,
@@ -178,6 +182,7 @@ public interface ScheduledExecutorService extends ExecutorService {
      * @throws NullPointerException if command is null
      * @throws IllegalArgumentException if delay less than or equal to zero
      */
+    //执行重复性的定时任务：固定延时，任务下次的开始时间=任务上次结束时间+delay
     public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command,
                                                      long initialDelay,
                                                      long delay,
