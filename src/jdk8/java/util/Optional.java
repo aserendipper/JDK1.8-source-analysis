@@ -46,6 +46,9 @@ import java.util.function.Supplier;
  * {@code Optional} may have unpredictable results and should be avoided.
  *
  * @since 1.8
+ *
+ *
+ * 用在一些非空判断中，用于简化非空判断的逻辑以及将非空判断与其他逻辑进行整合。
  */
 public final class Optional<T> {
     /**
@@ -63,6 +66,8 @@ public final class Optional<T> {
      *
      * @implNote Generally only one empty instance, {@link Optional#EMPTY},
      * should exist per VM.
+     *
+     * 私有构造方法，不能被通过new创建
      */
     private Optional() {
         this.value = null;
@@ -79,6 +84,9 @@ public final class Optional<T> {
      *
      * @param <T> Type of the non-existent value
      * @return an empty {@code Optional}
+     *
+     * 构造方法为private，可以通过此方法创建Optional对象
+     * 返回一个空对象
      */
     public static<T> Optional<T> empty() {
         @SuppressWarnings("unchecked")
@@ -91,6 +99,8 @@ public final class Optional<T> {
      *
      * @param value the non-null value to be present
      * @throws NullPointerException if value is null
+     *
+     * 私有构造方法，不能被通过new创建，value为null时抛出NullPointerException
      */
     private Optional(T value) {
         this.value = Objects.requireNonNull(value);
@@ -103,6 +113,8 @@ public final class Optional<T> {
      * @param value the value to be present, which must be non-null
      * @return an {@code Optional} with the value present
      * @throws NullPointerException if value is null
+     *
+     * 构造方法为private，可以通过此方法创建Optional对象
      */
     public static <T> Optional<T> of(T value) {
         return new Optional<>(value);
@@ -116,6 +128,8 @@ public final class Optional<T> {
      * @param value the possibly-null value to describe
      * @return an {@code Optional} with a present value if the specified value
      * is non-null, otherwise an empty {@code Optional}
+     *
+     * 构造方法为private，可以通过此方法创建Optional对象
      */
     public static <T> Optional<T> ofNullable(T value) {
         return value == null ? empty() : of(value);
@@ -141,6 +155,8 @@ public final class Optional<T> {
      * Return {@code true} if there is a value present, otherwise {@code false}.
      *
      * @return {@code true} if there is a value present, otherwise {@code false}
+     *
+     * 返回true代表对象存在
      */
     public boolean isPresent() {
         return value != null;
@@ -153,6 +169,8 @@ public final class Optional<T> {
      * @param consumer block to be executed if a value is present
      * @throws NullPointerException if value is present and {@code consumer} is
      * null
+     *
+     * 如果元素存在，执行consumer动作
      */
     public void ifPresent(Consumer<? super T> consumer) {
         if (value != null)
@@ -248,6 +266,8 @@ public final class Optional<T> {
      * @param other the value to be returned if there is no value present, may
      * be null
      * @return the value, if present, otherwise {@code other}
+     *
+     * 如果元素存在，返回它。否则，返回other
      */
     public T orElse(T other) {
         return value != null ? value : other;
@@ -262,6 +282,8 @@ public final class Optional<T> {
      * @return the value if present otherwise the result of {@code other.get()}
      * @throws NullPointerException if value is not present and {@code other} is
      * null
+     *
+     * 如果元素存在，返回它。否则，从supplier中获取
      */
     public T orElseGet(Supplier<? extends T> other) {
         return value != null ? value : other.get();
@@ -282,6 +304,8 @@ public final class Optional<T> {
      * @throws X if there is no value present
      * @throws NullPointerException if no value is present and
      * {@code exceptionSupplier} is null
+     *
+     * 如果元素存在，返回它。否则，从exceptionSupplier中取出异常并抛出
      */
     public <X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
         if (value != null) {
