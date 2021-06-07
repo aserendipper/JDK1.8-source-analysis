@@ -39,6 +39,26 @@ package java.lang;
  * @author  Frank Yellin
  * @jls 11.2 Compile-Time Checking of Exceptions
  * @since   JDK1.0
+ *
+ * 运行时异常，又称检查异常，编译前就需要捕获或抛出
+ *
+ * 异常体系：
+ *                           Throwable
+ *                               |
+ *                    +----------+-----------+
+ *                    |                      |
+ *                Exception                Error
+ *                    |                      |
+ *        +-----------+-----------+         ...
+ *        |                       |
+ * RuntimeException              ...
+ *        |
+ *       ...
+ *
+ * Throwable       : 所有异常的祖先类
+ * RuntimeException: 运行时异常，或称非检查异常；这类异常意味着程序出现了难以恢复的错误，允许不进行捕获
+ * Exception       : 除运行时异常之外的异常，或称检查异常；这类异常意味着程序出现错误时可能是允许被恢复的，需要在编译期就捕获，否则无法编译
+ * Error           : 非常严重的异常，该类异常往往意味着JVM内部出现了问题
  */
 public class RuntimeException extends Exception {
     static final long serialVersionUID = -7034897190745766939L;
