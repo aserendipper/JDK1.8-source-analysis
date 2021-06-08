@@ -111,6 +111,26 @@ import java.util.*;
  *          stack trace in 1.4.)
  * @jls 11.2 Compile-Time Checking of Exceptions
  * @since JDK1.0
+ *
+ * 异常体系的祖先
+ *
+ * 异常体系：
+ *                           Throwable
+ *                               |
+ *                    +----------+-----------+
+ *                    |                      |
+ *                Exception                Error
+ *                    |                      |
+ *        +-----------+-----------+         ...
+ *        |                       |
+ * RuntimeException              ...
+ *        |
+ *       ...
+ *
+ * Throwable       : 所有异常的祖先类
+ * RuntimeException: 运行时异常，或称非检查异常；这类异常意味着程序出现了难以恢复的错误，允许不进行捕获
+ * Exception       : 除运行时异常之外的异常，或称检查异常；这类异常意味着程序出现错误时可能是允许被恢复的，需要在编译期就捕获，否则无法编译
+ * Error           : 非常严重的异常，该类异常往往意味着JVM内部出现了问题
  */
 public class Throwable implements Serializable {
     /** use serialVersionUID from JDK 1.0.2 for interoperability */
@@ -127,6 +147,8 @@ public class Throwable implements Serializable {
      * the file that could not be found.
      *
      * @serial
+     *
+     * 描述此异常的信息
      */
     private String detailMessage;
 
@@ -156,6 +178,8 @@ public class Throwable implements Serializable {
 
     /**
      * A shared value for an empty stack.
+     *
+     * 共享的空栈
      */
     private static final StackTraceElement[] UNASSIGNED_STACK = new StackTraceElement[0];
 
@@ -194,6 +218,10 @@ public class Throwable implements Serializable {
      *
      * @serial
      * @since 1.4
+     *
+     * 表示当前异常由那个Throwable引起
+     * 如果为null表示此异常不是由其他Throwable引起的
+     * 如果此对象与自己相同,表明此异常的起因对象还没有被初始化
      */
     private Throwable cause = this;
 
@@ -207,6 +235,8 @@ public class Throwable implements Serializable {
      *
      * @serial
      * @since 1.4
+     *
+     * 异常堆栈，如果是只读堆栈，则stackTrace为null
      */
     private StackTraceElement[] stackTrace = UNASSIGNED_STACK;
 
@@ -224,6 +254,8 @@ public class Throwable implements Serializable {
      *
      * @serial
      * @since 1.7
+     *
+     * 抑制异常，如果禁止该功能，则suppressedExceptions为null
      */
     private List<Throwable> suppressedExceptions = SUPPRESSED_SENTINEL;
 
@@ -246,6 +278,9 @@ public class Throwable implements Serializable {
      *
      * <p>The {@link #fillInStackTrace()} method is called to initialize
      * the stack trace data in the newly created throwable.
+     *
+     * 构造函数,起因对象没有被初始化可以在以后使用initCause进行初始化
+     * fillInStackTrace可以用来初始化它的异常轨迹的数组
      */
     public Throwable() {
         fillInStackTrace();
@@ -263,7 +298,9 @@ public class Throwable implements Serializable {
      *          later retrieval by the {@link #getMessage()} method.
      */
     public Throwable(String message) {
+        // 填充异常轨迹数组
         fillInStackTrace();
+        // 初始化异常描述信息
         detailMessage = message;
     }
 
@@ -283,6 +320,8 @@ public class Throwable implements Serializable {
      *         permitted, and indicates that the cause is nonexistent or
      *         unknown.)
      * @since  1.4
+     *
+     * 构造函数,cause表示起因对象
      */
     public Throwable(String message, Throwable cause) {
         fillInStackTrace();
@@ -373,6 +412,8 @@ public class Throwable implements Serializable {
      *
      * @return  the detail message string of this {@code Throwable} instance
      *          (which may be {@code null}).
+     *
+     * 返回异常消息
      */
     public String getMessage() {
         return detailMessage;
@@ -387,6 +428,8 @@ public class Throwable implements Serializable {
      *
      * @return  The localized description of this throwable.
      * @since   JDK1.1
+     *
+     * 返回本地化的异常消息
      */
     public String getLocalizedMessage() {
         return getMessage();
@@ -411,6 +454,8 @@ public class Throwable implements Serializable {
      * @return  the cause of this throwable or {@code null} if the
      *          cause is nonexistent or unknown.
      * @since 1.4
+     *
+     * 返回触发当前异常的"原因"，这个"原因"也是一个异常
      */
     public synchronized Throwable getCause() {
         return (cause==this ? null : cause);
@@ -451,14 +496,22 @@ public class Throwable implements Serializable {
      *         {@link #Throwable(String,Throwable)}, or this method has already
      *         been called on this throwable.
      * @since  1.4
+     *
+     * 为当前异常设置一个触发原因
+     *
+     * 注：每个异常最多只能有一个触发原因
      */
     public synchronized Throwable initCause(Throwable cause) {
+        //如果不是未初始化状态则抛出异常
         if (this.cause != this)
             throw new IllegalStateException("Can't overwrite cause with " +
                                             Objects.toString(cause, "a null"), this);
+        // 要设置的起因对象与自身相等则抛出异常
         if (cause == this)
             throw new IllegalArgumentException("Self-causation not permitted", this);
+        // 设置起因对象
         this.cause = cause;
+        // 返回设置的起因的对象
         return this;
     }
 
@@ -630,6 +683,8 @@ public class Throwable implements Serializable {
      *          at Resource2$CloseFailException.&lt;init&gt;(Resource2.java:45)
      *          ... 2 more
      * </pre>
+     *
+     * 将异常栈帧打印到标准输出流
      */
     public void printStackTrace() {
         printStackTrace(System.err);
@@ -639,6 +694,8 @@ public class Throwable implements Serializable {
      * Prints this throwable and its backtrace to the specified print stream.
      *
      * @param s {@code PrintStream} to use for output
+     *
+     * 将异常栈帧打印到指定的输出流
      */
     public void printStackTrace(PrintStream s) {
         printStackTrace(new WrappedPrintStream(s));
@@ -654,7 +711,9 @@ public class Throwable implements Serializable {
         synchronized (s.lock()) {
             // Print our stack trace
             s.println(this);
+            // 获取异常轨迹数组
             StackTraceElement[] trace = getOurStackTrace();
+            // 打印出每个元素的字符串表示
             for (StackTraceElement traceElement : trace)
                 s.println("\tat " + traceElement);
 
@@ -663,7 +722,9 @@ public class Throwable implements Serializable {
                 se.printEnclosedStackTrace(s, trace, SUPPRESSED_CAPTION, "\t", dejaVu);
 
             // Print cause, if any
+            // 获取起因对象
             Throwable ourCause = getCause();
+            // 递归的打印出起因对象的信息
             if (ourCause != null)
                 ourCause.printEnclosedStackTrace(s, trace, CAUSE_CAPTION, "", dejaVu);
         }
@@ -777,6 +838,8 @@ public class Throwable implements Serializable {
      *
      * @return  a reference to this {@code Throwable} instance.
      * @see     java.lang.Throwable#printStackTrace()
+     *
+     * 初始化栈帧信息
      */
     public synchronized Throwable fillInStackTrace() {
         if (stackTrace != null ||
@@ -786,7 +849,7 @@ public class Throwable implements Serializable {
         }
         return this;
     }
-
+    // 填充异常轨迹
     private native Throwable fillInStackTrace(int dummy);
 
     /**
@@ -812,18 +875,24 @@ public class Throwable implements Serializable {
      * @return an array of stack trace elements representing the stack trace
      *         pertaining to this throwable.
      * @since  1.4
+     *
+     * 返回异常堆栈
      */
     public StackTraceElement[] getStackTrace() {
         return getOurStackTrace().clone();
     }
-
+    // 获取当前的异常轨迹
     private synchronized StackTraceElement[] getOurStackTrace() {
         // Initialize stack trace field with information from
         // backtrace if this is the first call to this method
+        // 如果第一次调用此方法则初始化异常轨迹数组
         if (stackTrace == UNASSIGNED_STACK ||
             (stackTrace == null && backtrace != null) /* Out of protocol state */) {
+            // 获得异常轨迹深度
             int depth = getStackTraceDepth();
+            // 创建新的异常轨迹数组,并填充它
             stackTrace = new StackTraceElement[depth];
+            // 获取指定位标的异常轨迹
             for (int i=0; i < depth; i++)
                 stackTrace[i] = getStackTraceElement(i);
         } else if (stackTrace == null) {
@@ -859,10 +928,14 @@ public class Throwable implements Serializable {
      *         {@code stackTrace} are {@code null}
      *
      * @since  1.4
+     *
+     * 设置异常堆栈
      */
     public void setStackTrace(StackTraceElement[] stackTrace) {
         // Validate argument
+        // 获取异常堆栈信息
         StackTraceElement[] defensiveCopy = stackTrace.clone();
+        // 遍历异常堆栈，确保其中没有null值
         for (int i = 0; i < defensiveCopy.length; i++) {
             if (defensiveCopy[i] == null)
                 throw new NullPointerException("stackTrace[" + i + "]");
@@ -872,6 +945,7 @@ public class Throwable implements Serializable {
             if (this.stackTrace == null && // Immutable stack
                 backtrace == null) // Test for out of protocol state
                 return;
+            // 更新异常堆栈
             this.stackTrace = defensiveCopy;
         }
     }
@@ -1076,6 +1150,10 @@ public class Throwable implements Serializable {
      *         throwable; a throwable cannot suppress itself.
      * @throws NullPointerException if {@code exception} is {@code null}
      * @since 1.7
+     *
+     * 为当前异常添加一个抑制(次要)异常
+     *
+     * 注：这种机制弥补了"Cause"的缺陷，当存在多个待抛异常时，可以用此种方式来区分主次
      */
     public final synchronized void addSuppressed(Throwable exception) {
         if (exception == this)
@@ -1109,6 +1187,8 @@ public class Throwable implements Serializable {
      * @return an array containing all of the exceptions that were
      *         suppressed to deliver this exception.
      * @since 1.7
+     *
+     * 返回当前异常的"抑制(次要)异常"
      */
     public final synchronized Throwable[] getSuppressed() {
         if (suppressedExceptions == SUPPRESSED_SENTINEL ||
