@@ -43,6 +43,8 @@ import java.lang.ref.*;
  * @author  Josh Bloch and Doug Lea
  * @see     ThreadLocal
  * @since   1.2
+ *
+ * 可以创建允许子线程继承的ThreadLocal（及其关联值）
  */
 
 public class InheritableThreadLocal<T> extends ThreadLocal<T> {
@@ -57,6 +59,8 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
      *
      * @param parentValue the parent thread's value
      * @return the child thread's initial value
+     *
+     * 拿到父线程的值后，可以在这里处理后再返回给子线程
      */
     protected T childValue(T parentValue) {
         return parentValue;
@@ -66,6 +70,8 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
      * Get the map associated with a ThreadLocal.
      *
      * @param t the current thread
+     *
+     * 获取当前线程内的inheritableThreadLocals属性
      */
     ThreadLocalMap getMap(Thread t) {
        return t.inheritableThreadLocals;
@@ -76,6 +82,8 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
      *
      * @param t the current thread
      * @param firstValue value for the initial entry of the table.
+     *
+     * 初始化线程中的inheritableThreadLocals属性
      */
     void createMap(Thread t, T firstValue) {
         t.inheritableThreadLocals = new ThreadLocalMap(this, firstValue);
